@@ -12,12 +12,12 @@
 
 	// Choose which site to arrive when clicking on a video
 
-	let selected: string;
-
 	const sites = [
 		{ title: 'Youtube', url: 'https://youtube.com' },
 		{ title: 'Piped', url: 'https://piped.video' }
 	];
+
+	let selected = $state(sites[0].url);
 </script>
 
 <!-- Header showing title, subtitle and setting -->
@@ -27,7 +27,7 @@
 	<br />
 	<label for="sites">Preferred website when clicking on a video: </label>
 	<select name="sites" id="sites" bind:value={selected}>
-		{#each sites as site}
+		{#each sites as site (site.url)}
 			<option value={site.url}>{site.title}</option>
 		{/each}
 	</select>
@@ -39,7 +39,7 @@
 		<Handle state="loading" />
 	{:then videos}
 		<!-- Lay out each video in a grid -->
-		{#each videos as video}
+		{#each videos as video (video.url)}
 			<Card data={video} site={selected} />
 		{/each}
 	{:catch error}

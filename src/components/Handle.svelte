@@ -1,6 +1,8 @@
 <script lang="ts">
-	export let state: 'loading' | 'error';
-	export let errorMSG: string = 'no error';
+	let {
+		state,
+		errorMSG = 'no error'
+	}: { state: 'loading' | 'error'; errorMSG?: string } = $props();
 </script>
 
 <div>

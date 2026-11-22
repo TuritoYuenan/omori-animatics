@@ -1,6 +1,11 @@
 <script lang="ts">
-	export let title: string;
-	export let desc: string;
+	import type { Snippet } from 'svelte';
+
+	let {
+		title,
+		desc,
+		children
+	}: { title: string; desc: string; children?: Snippet } = $props();
 </script>
 
 <svelte:head>
@@ -11,7 +16,7 @@
 <header>
 	<h1>{title}</h1>
 	<p>{desc}</p>
-	<slot />
+	{@render children?.()}
 </header>
 
 <style>

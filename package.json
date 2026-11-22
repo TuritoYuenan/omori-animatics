@@ -4,30 +4,21 @@
 	"description": "Collection of Youtube's OMORI animatics",
 	"version": "1.0.0",
 	"type": "module",
-	"devDependencies": {
-		"prettier": "*",
-		"prettier-plugin-svelte": "*",
-		"@sveltejs/vite-plugin-svelte": "^2.4.6",
-		"svelte": "^4.2.2",
-		"vite": "*"
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check ."
 	},
-	"prettier": {
-		"useTabs": true,
-		"tabWidth": 4,
-		"singleQuote": true,
-		"bracketSameLine": true,
-		"trailingComma": "none",
-		"quoteProps": "preserve",
-		"plugins": [
-			"prettier-plugin-svelte"
-		],
-		"overrides": [
-			{
-				"files": "*.svelte",
-				"options": {
-					"parser": "svelte"
-				}
-			}
-		]
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"oxfmt": "^0.79.0",
+		"svelte": "^5.59.1",
+		"vite": "^8.3.8"
+	},
+	"dependencies": {
+		"google-auth-library": "^11.3.4",
+		"googleapis": "^190.0.0"
 	}
 }

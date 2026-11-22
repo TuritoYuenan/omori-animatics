@@ -8,14 +8,25 @@ const endpoint = 'https://pipedapi.kavin.rocks/playlists/';
  */
 const playlist = 'PLN0RqFX2ugKWd5zj3s7uobPsqNIpbxgfD';
 
+export interface Animatic {
+	uploaderName: string;
+	uploadedDate: string;
+	thumbnail: string;
+	title: string;
+	url: string;
+}
+
 /**
  * Request to Piped for playlist data
  */
-export default (
-	async (source: string) => {
-		const response = await fetch(source);
-		const rawData = await response.json();
-
-		return rawData.relatedStreams;
+async function fetchPlaylist(source: string): Promise<Animatic[]> {
+	const response = await fetch(source);
+	if (!response.ok) {
+		throw new Error(`Piped API returned ${response.status}`);
 	}
-)(endpoint + playlist);
+	const rawData: { relatedStreams: Animatic[] } = await response.json();
+
+	return rawData.relatedStreams;
+}
+
+export default fetchPlaylist(endpoint + playlist);

@@ -1,14 +1,17 @@
 <script lang="ts">
-	export let data: any;
-	export let site: string = "https://youtube.com";
-	const { uploaderName, uploadedDate, thumbnail, title, url } = data;
+	import type { Animatic } from '../animatics';
+
+	let {
+		data,
+		site = 'https://youtube.com'
+	}: { data: Animatic; site?: string } = $props();
 </script>
 
-<a href={site + url} target="_blank" rel="noreferrer noopener">
-	<img src={thumbnail} alt="Video thumbnail" width="336" height="188" />
+<a href={site + data.url} target="_blank" rel="noreferrer noopener">
+	<img src={data.thumbnail} alt="Video thumbnail" width="336" height="188" />
 	<section>
-		<p><small>{uploadedDate}</small> - by {uploaderName}</p>
-		<p><strong>{title}</strong></p>
+		<p><small>{data.uploadedDate}</small> - by {data.uploaderName}</p>
+		<p><strong>{data.title}</strong></p>
 	</section>
 </a>
 

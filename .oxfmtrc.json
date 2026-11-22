@@ -1,0 +1,22 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"bracketSameLine": true,
+	"overrides": [
+		{
+			"files": ["*.yml", "*.yaml"],
+			"options": {
+				"singleQuote": false,
+				"tabWidth": 2,
+				"useTabs": false
+			}
+		}
+	],
+	"printWidth": 80,
+	"quoteProps": "preserve",
+	"semi": true,
+	"singleQuote": true,
+	"sortPackageJson": false,
+	"tabWidth": 4,
+	"trailingComma": "none",
+	"useTabs": true
+}
