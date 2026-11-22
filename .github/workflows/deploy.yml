@@ -1,14 +1,17 @@
-name: Deploy
+name: Deploy Svelte application
 on:
-  push:
-    branches: svelte-app
-  pull_request:
-    branches: svelte-app
+  release:
+    types: published
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
+  # MARK: Build
+  build:
+    name: Build
+    runs-on: ubuntu-slim
 
     permissions:
       id-token: write # Needed for auth with Deno Deploy
@@ -16,10 +19,10 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
 
@@ -29,9 +32,19 @@ jobs:
       - name: Build step
         run: npm run build
 
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v5
         with:
-          project: "omori-animatics"
-          entrypoint: https://deno.land/std@0.204.0/http/file_server.ts # 📝 Update the entrypoint if necessary
-          root: dist # 📝 Update the root if necessary
+          include-hidden-files: false
+          path: ./dist
+
+  # MARK: Deploy
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-slim
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
